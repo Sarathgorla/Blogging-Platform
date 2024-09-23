@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Fontawesome -->
+    <script
+      src="https://kit.fontawesome.com/42a182743f.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/profile.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Profile</title>
+  </head>
+  <body>
+    <!-- nav bar-->
+    <%-include("../partials/navbar.ejs")%>
+    <div class="profile-container">
+      <header
+        style="
+          background-image: url(<%=user?.coverImage%>);
+        "
+      >
+        <div class="icons-container">
+          <!-- upload cover image icon -->
+          <a href="/api/v1/users/upload-cover-photo-form"><img src="/images/icons8-upload-image-48.png" alt="Upload"></a> 
+         
+          
+            
+            <a href="/api/v1/users/<%=user?._id%>"><img src="/images/icons8-update-user-40.png" alt="Upload"></a> 
+            <a href="/api/v1/users/update-password-form"><img src="/images/icons8-change-password-58.png"  alt="Upload"></a> 
+        </div>
+        <!-- upload cover image icon -->
+      
+        <i class="fas fa-camera upload-btn"></i>
+    
+      </header>
+
+      <!-- profile image -->
+
+      <div class="profile-img">
+        <!-- upload profile image icon -->
+         <a href="/api/v1/users/upload-profile-photo-form">
+        <img
+          src="<%= user?.profileImage %>"alt="profile image"
+        /></a> 
+        <!-- upload profile image icon -->
+        
+        <!--<i class="fas fa-camera upload-btn"></i>-->
+        
+      </div>
+      <!-- personal details -->
+      <div class="personal-container">
+        <div class="details-wrapper">
+          <div class="details">
+            <i class="fas fa-user"></i>
+            <p>Name:<%=user?.fullname%></p>
+          </div>
+          <div class="details">
+            <i class="fas fa-envelope"></i>
+            <p>Email:<%= user?.email%></p>
+          </div>
+          <!-- date joined -->
+          <div class="details">
+            <i class="fas fa-calendar"></i>
+            <p>Date Joined: <%= user?.createdAt.toLocaleDateString() %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="latest-post-title">
+      <!-- Icon -->
+      <i class="fas fa-book-open"></i>
+      <h1>Latest Posts (20)</h1>
+      
+    </div>
+
+    <!-- content -->
+    <section class="container-flex">
+      <% if (user?.posts?.length <= 0) { %>
+        <p>No posts available.</p>
+      <% } else { %>
+        <% user?.posts?.forEach((post) => { %>
+          <article class="post-content">
+            <img src="<%= post?.image %>" alt="Post image" class="post-image" />
+            <p class="post-info">
+              <span class="post-author">
+                <i class="fas fa-user"></i>
+                <a href="#">John Doe</a>
+              </span>
+              <span class="post-date">
+                <i class="far fa-calendar-alt"></i>
+                <time datetime="<%=post?.createdAt.toLocaleDateString() %>"></time>
+              </span>
+            </p>
+            <h1 class="post-title"><%=post?.title %></h1>
+            <p class="post-body">
+              <%=tuncatePost(post?.description)%>
+            </p>
+            <!-- category -->
+            <div class="post-category">
+              <span>Category:</span>
+              <%=post?.category %> <!-- Assuming there is a category field in post -->
+            </div>
+            <a href="/api/v1/posts/<%=post?._id%>" class="post-read-more">Continue Reading...</a>
+          </article>
+        <% }) %>
+      <% } %>
+    </section>
+    
+    <!-- footer -->
+  
+    <%-include("../partials/footer.ejs")%>
+  </body>
+</html>
+
+
+<p>
+  <i style="color: yellow" class="fa-solid fa-key fas"></i>
+</p>
