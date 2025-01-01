@@ -16,7 +16,7 @@ Users can create, update, and delete posts, register and log in securely with au
 - **Frontend:** Html,Css Js
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB (Mongoose)
-- **Authentication:** JWT (JSON Web Token), bcrypt
+- **Authentication:** session-based authentication, bcrypt
 - **Version Control:** Git and GitHub
 
 ## 📸 Screenshots
